@@ -1,12 +1,27 @@
 "use client"
 
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
     const [todos, setTodos] = useState([]);
     const [filter, setFilter] = useState('all');
+
+    useEffect(() => {
+        if (todos.length > 0) {
+            console.log("set")
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+    }, [todos]);
+
+    useEffect(() => {
+        const storedTodos = localStorage.getItem('todos');
+        if (storedTodos) {
+            console.log("get")
+            setTodos(JSON.parse(storedTodos));
+        }
+    }, []);
 
     // Menambahkan tugas
     const addTodo = (description) => {
