@@ -10,7 +10,6 @@ export const TodoProvider = ({ children }) => {
 
     useEffect(() => {
         if (todos.length > 0) {
-            console.log("set")
             localStorage.setItem('todos', JSON.stringify(todos));
         }
     }, [todos]);
@@ -18,7 +17,6 @@ export const TodoProvider = ({ children }) => {
     useEffect(() => {
         const storedTodos = localStorage.getItem('todos');
         if (storedTodos) {
-            console.log("get")
             setTodos(JSON.parse(storedTodos));
         }
     }, []);
